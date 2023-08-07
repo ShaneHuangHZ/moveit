@@ -187,7 +187,7 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
   /* For place location, we set the value to the exact location of the center of the object. */
   place_location[0].place_pose.pose.position.x = 0.45;  //0->1
   place_location[0].place_pose.pose.position.y = 0.5;
-  place_location[0].place_pose.pose.position.z = 0.2;
+  place_location[0].place_pose.pose.position.z = 0.1;
 
 
 
@@ -504,7 +504,7 @@ int main(int argc, char** argv)
 
   ros::waitForShutdown();
   return 0;
-}
+} 
 
 // BEGIN_TUTORIAL
 // CALL_SUB_TUTORIAL table1
