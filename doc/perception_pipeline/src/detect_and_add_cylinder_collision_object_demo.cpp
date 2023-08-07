@@ -110,6 +110,72 @@ public:
     // END_SUB_TUTORIAL
   }
 
+
+
+void addCollisionObjects()
+{
+  // BEGIN_SUB_TUTORIAL table1
+  //
+  // Creating Environment
+  // ^^^^^^^^^^^^^^^^^^^^
+  // Create vector to hold 3 collision objects.
+  std::vector<moveit_msgs::CollisionObject> collision_objects;
+  collision_objects.resize(2);
+
+  // Add the first table where the cube will originally be kept.
+  collision_objects[0].id = "table1";
+  collision_objects[0].header.frame_id = "panda_link0";
+
+  /* Define the primitive and its dimensions. */
+  collision_objects[0].primitives.resize(1);
+  collision_objects[0].primitives[0].type = collision_objects[0].primitives[0].BOX;
+  collision_objects[0].primitives[0].dimensions.resize(3);
+  collision_objects[0].primitives[0].dimensions[0] = 0.03;
+  collision_objects[0].primitives[0].dimensions[1] = 0.03;
+  collision_objects[0].primitives[0].dimensions[2] = 0.9;
+
+  /* Define the pose of the table. */
+  collision_objects[0].primitive_poses.resize(1);
+  collision_objects[0].primitive_poses[0].position.x = 0.5;
+  collision_objects[0].primitive_poses[0].position.y = 0;
+  collision_objects[0].primitive_poses[0].position.z = 0.45;
+  collision_objects[0].primitive_poses[0].orientation.w = 1.0;
+  // END_SUB_TUTORIAL
+
+  collision_objects[0].operation = collision_objects[0].ADD;
+
+  // BEGIN_SUB_TUTORIAL table2
+  // Add the second table where we will be placing the cube.
+  collision_objects[1].id = "table2";
+  collision_objects[1].header.frame_id = "panda_link0";
+
+  /* Define the primitive and its dimensions. */
+  collision_objects[1].primitives.resize(1);
+  collision_objects[1].primitives[0].type = collision_objects[1].primitives[0].BOX;
+  collision_objects[1].primitives[0].dimensions.resize(3);
+  collision_objects[1].primitives[0].dimensions[0] = 0.03;
+  collision_objects[1].primitives[0].dimensions[1] = 0.03;
+  collision_objects[1].primitives[0].dimensions[2] = 0.9;
+
+  /* Define the pose of the table. */
+  collision_objects[1].primitive_poses.resize(1);
+  collision_objects[1].primitive_poses[0].position.x = 0.15;
+  collision_objects[1].primitive_poses[0].position.y = 0.5;
+  collision_objects[1].primitive_poses[0].position.z = 0.45;
+  collision_objects[1].primitive_poses[0].orientation.w = 1.0;
+  // END_SUB_TUTORIAL
+
+  collision_objects[1].operation = collision_objects[1].ADD;
+  planning_scene_interface_.applyCollisionObjects(collision_objects);
+}
+
+
+
+
+
+
+
+
   /** \brief Given the pointcloud containing just the cylinder,
       compute its center point and its height and store in cylinder_params.
       @param cloud - point cloud containing just the cylinder. */
@@ -269,6 +335,10 @@ public:
     extract.filter(*cloud);
   }
 
+
+
+
+
   void cloudCB(const sensor_msgs::PointCloud2ConstPtr& input)
   {
     // BEGIN_SUB_TUTORIAL callback
@@ -335,8 +405,10 @@ public:
     // CALL_SUB_TUTORIAL extract_location_height
     // Use the parameters extracted to add the cylinder to the planning scene as a collision object.
     addCylinder();
+    addCollisionObjects();
     // CALL_SUB_TUTORIAL add_cylinder
     // END_TUTORIAL
+
   }
 
 private:
