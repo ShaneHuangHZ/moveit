@@ -97,20 +97,20 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
   // transform from `"panda_link8"` to the palm of the end effector.
   grasps[0].grasp_pose.header.frame_id = "panda_link0";
   tf2::Quaternion orientation;
-  orientation.setRPY(-3.1415, -6.3183, -0.7854);
+  orientation.setRPY(-tau / 4, -tau / 8, -tau / 4);
   grasps[0].grasp_pose.pose.orientation = tf2::toMsg(orientation);
-  grasps[0].grasp_pose.pose.position.x = -0.2339;
-  grasps[0].grasp_pose.pose.position.y = 0.3968;
-  grasps[0].grasp_pose.pose.position.z = 0.274;
+  grasps[0].grasp_pose.pose.position.x = 0.415;
+  grasps[0].grasp_pose.pose.position.y = 0;
+  grasps[0].grasp_pose.pose.position.z = 0.5;
 
   // Setting pre-grasp approach
   // ++++++++++++++++++++++++++
   /* Defined with respect to frame_id */
   grasps[0].pre_grasp_approach.direction.header.frame_id = "panda_link0";
   /* Direction is set as positive x axis */
-  grasps[0].pre_grasp_approach.direction.vector.z = -1.0;
+  grasps[0].pre_grasp_approach.direction.vector.y = 1.0;
   grasps[0].pre_grasp_approach.min_distance = 0.1;
-  grasps[0].pre_grasp_approach.desired_distance = 0.115;
+  grasps[0].pre_grasp_approach.desired_distance = 1.5;
 
   // Setting post-grasp retreat
   // ++++++++++++++++++++++++++
@@ -151,147 +151,35 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
   std::vector<moveit_msgs::PlaceLocation> place_location;
   place_location.resize(1);
 
-
-
-
-
-
-
-
-
   // Setting place location pose
   // +++++++++++++++++++++++++++
-
-
-
-
-//ok
-  // place_location[0].place_pose.header.frame_id = "panda_link0";
-  // tf2::Quaternion orientation;
-  // orientation.setRPY(0, 0, tau / 4);  // A quarter turn about the z-axis
-  // place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
-
-  // /* For place location, we set the value to the exact location of the center of the object. */
-  // place_location[0].place_pose.pose.position.x = 0.3;  //0->1
-  // place_location[0].place_pose.pose.position.y = 0.5;
-  // place_location[0].place_pose.pose.position.z = 0.5;
-
-
-
-
   place_location[0].place_pose.header.frame_id = "panda_link0";
   tf2::Quaternion orientation;
   orientation.setRPY(0, 0, tau / 4);  // A quarter turn about the z-axis
   place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
 
   /* For place location, we set the value to the exact location of the center of the object. */
-  place_location[0].place_pose.pose.position.x = 0.45;  //0->1
+  place_location[0].place_pose.pose.position.x = 0;
   place_location[0].place_pose.pose.position.y = 0.5;
-  place_location[0].place_pose.pose.position.z = 0.2;
-
-
-
-
-
-
-
-
-
-  // place_location[0].place_pose.header.frame_id = "panda_link0";
-  // tf2::Quaternion orientation;
-  // orientation.setRPY(3.141500973729072, -0.0005356768440385268, -0.7850366658715972);  // A quarter turn about the z-axis
-  // place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
-
-  // /* For place location, we set the value to the exact location of the center of the object. */
-  // place_location[0].place_pose.pose.position.x = 0.4805188082626551;
-  // place_location[0].place_pose.pose.position.y = 0.6386307749238186;
-  // place_location[0].place_pose.pose.position.z = 0.29844378350569883;
-
-
-
-
-
-
-
-
-
+  place_location[0].place_pose.pose.position.z = 0.5;
 
   // Setting pre-place approach
   // ++++++++++++++++++++++++++
   /* Defined with respect to frame_id */
   place_location[0].pre_place_approach.direction.header.frame_id = "panda_link0";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // /* Direction is set as negative z axis */
-  // place_location[0].pre_place_approach.direction.vector.z = -1.0;
-  // place_location[0].pre_place_approach.min_distance = 0.095;
-  // place_location[0].pre_place_approach.desired_distance = 0.115;
-
-  // // Setting post-grasp retreat
-  // // ++++++++++++++++++++++++++
-  // /* Defined with respect to frame_id */
-  // place_location[0].post_place_retreat.direction.header.frame_id = "panda_link0";
-  // /* Direction is set as negative y axis */
-  // place_location[0].post_place_retreat.direction.vector.y = -1.0;
-  // place_location[0].post_place_retreat.min_distance = 0.1;
-  // place_location[0].post_place_retreat.desired_distance = 0.25;
-
-
-
-
-
-
-
-
   /* Direction is set as negative z axis */
   place_location[0].pre_place_approach.direction.vector.z = -1.0;
-  place_location[0].pre_place_approach.min_distance = 0.02;
-  place_location[0].pre_place_approach.desired_distance = 0.05;
+  place_location[0].pre_place_approach.min_distance = 0.095;
+  place_location[0].pre_place_approach.desired_distance = 0.115;
 
   // Setting post-grasp retreat
   // ++++++++++++++++++++++++++
   /* Defined with respect to frame_id */
   place_location[0].post_place_retreat.direction.header.frame_id = "panda_link0";
   /* Direction is set as negative y axis */
-  place_location[0].post_place_retreat.direction.vector.z = 1.0;
-  place_location[0].post_place_retreat.min_distance = 0.02;
-  place_location[0].post_place_retreat.desired_distance = 0.05;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  place_location[0].post_place_retreat.direction.vector.y = -1.0;
+  place_location[0].post_place_retreat.min_distance = 0.1;
+  place_location[0].post_place_retreat.desired_distance = 0.25;
 
   // Setting posture of eef after placing object
   // +++++++++++++++++++++++++++++++++++++++++++
@@ -396,59 +284,59 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
 
 
 
-// void addCollisionObjects(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
-// {
-//   // BEGIN_SUB_TUTORIAL table1
-//   //
-//   // Creating Environment
-//   // ^^^^^^^^^^^^^^^^^^^^
-//   // Create vector to hold 3 collision objects.
-//   std::vector<moveit_msgs::CollisionObject> collision_objects;
-//   collision_objects.resize(1);
+void addCollisionObjects(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
+{
+  // BEGIN_SUB_TUTORIAL table1
+  //
+  // Creating Environment
+  // ^^^^^^^^^^^^^^^^^^^^
+  // Create vector to hold 3 collision objects.
+  std::vector<moveit_msgs::CollisionObject> collision_objects;
+  collision_objects.resize(1);
 
-//   // Add the first table where the cube will originally be kept.
-
-
-//   /* Define the primitive and its dimensions. */
+  // Add the first table where the cube will originally be kept.
 
 
-//   /* Define the pose of the table. */
-
-//   // END_SUB_TUTORIAL
+  /* Define the primitive and its dimensions. */
 
 
+  /* Define the pose of the table. */
 
-//   // BEGIN_SUB_TUTORIAL table2
-//   // Add the second table where we will be placing the cube.
-
-//   /* Define the pose of the table. */
+  // END_SUB_TUTORIAL
 
 
-//   // BEGIN_SUB_TUTORIAL object
-//   // Define the object that we will be manipulating
-//   collision_objects[0].header.frame_id = "panda_link0";
-//   collision_objects[0].id = "object";
 
-//   /* Define the primitive and its dimensions. */
-//   collision_objects[0].primitives.resize(1);
-//   collision_objects[0].primitives[0].type = collision_objects[1].primitives[0].BOX;
-//   collision_objects[0].primitives[0].dimensions.resize(3);
-//   collision_objects[0].primitives[0].dimensions[0] = 0.02;
-//   collision_objects[0].primitives[0].dimensions[1] = 0.02;
-//   collision_objects[0].primitives[0].dimensions[2] = 0.2;
+  // BEGIN_SUB_TUTORIAL table2
+  // Add the second table where we will be placing the cube.
 
-//   /* Define the pose of the object. */
-//   collision_objects[0].primitive_poses.resize(1);
-//   collision_objects[0].primitive_poses[0].position.x = 0.5;
-//   collision_objects[0].primitive_poses[0].position.y = 0;
-//   collision_objects[0].primitive_poses[0].position.z = 0.5;
-//   collision_objects[0].primitive_poses[0].orientation.w = 1.0;
-//   // END_SUB_TUTORIAL
+  /* Define the pose of the table. */
 
-//   collision_objects[0].operation = collision_objects[0].ADD;
 
-//   planning_scene_interface.applyCollisionObjects(collision_objects);
-// }
+  // BEGIN_SUB_TUTORIAL object
+  // Define the object that we will be manipulating
+  collision_objects[0].header.frame_id = "panda_link0";
+  collision_objects[0].id = "object";
+
+  /* Define the primitive and its dimensions. */
+  collision_objects[0].primitives.resize(1);
+  collision_objects[0].primitives[0].type = collision_objects[1].primitives[0].BOX;
+  collision_objects[0].primitives[0].dimensions.resize(3);
+  collision_objects[0].primitives[0].dimensions[0] = 0.02;
+  collision_objects[0].primitives[0].dimensions[1] = 0.02;
+  collision_objects[0].primitives[0].dimensions[2] = 0.2;
+
+  /* Define the pose of the object. */
+  collision_objects[0].primitive_poses.resize(1);
+  collision_objects[0].primitive_poses[0].position.x = 0.5;
+  collision_objects[0].primitive_poses[0].position.y = 0;
+  collision_objects[0].primitive_poses[0].position.z = 0.5;
+  collision_objects[0].primitive_poses[0].orientation.w = 1.0;
+  // END_SUB_TUTORIAL
+
+  collision_objects[0].operation = collision_objects[0].ADD;
+
+  planning_scene_interface.applyCollisionObjects(collision_objects);
+}
 
 
 
@@ -487,11 +375,11 @@ int main(int argc, char** argv)
   spinner.start();
 
   ros::WallDuration(1.0).sleep();
-  // moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+  moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
   moveit::planning_interface::MoveGroupInterface group("panda_arm");
   group.setPlanningTime(45.0);
 
-  // addCollisionObjects(planning_scene_interface);
+  addCollisionObjects(planning_scene_interface);
 
   // Wait a bit for ROS things to initialize
   ros::WallDuration(1.0).sleep();
